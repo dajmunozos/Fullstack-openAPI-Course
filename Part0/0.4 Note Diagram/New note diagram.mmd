@@ -1,0 +1,55 @@
+sequenceDiagram
+    participant browser
+    participant server
+
+    browser->>server: GET https://studies.cs.helsinki.fi/example/notes
+    activate server
+    server-->>browser: the HTML Document
+    deactivate server
+    
+    browser->>server: GET https://studies.cs.helsinki.fi/example/main.css
+    activate server
+    server-->>browser: the CSS file
+    deactivate server
+
+    browser->>server: GET https://studies.cs.helsinki.fi/example/main.js
+    activate server
+    server-->>browser: the JavaScript file
+    deactivate server
+
+    Note right of browser: The browser starts executing the JavaScript code that fetch the JSON from the server
+
+    browser->>server: GET https://studies.cs.helsinki.fi/example/data.json
+    activate server
+    server-->>browser: [{"content:" "HTML is easy", "date": "2024-02-28"}, ... ]
+    deactivate server
+
+    Note right of browser: The browser execute the callback function that renders the note
+
+    browser->>server: POST https://studies.cs.helsinki.fi/exampleapp/new_note
+    activate server
+    server-->>browser: 302 redirect
+    Note left of server: The server ask to de browser to do a new HTTP GET request
+    browser->>server: GET https://studies.cs.helsinki.fi/example/notes
+    server-->>browser: the HTML file
+    deactivate server
+
+     browser->>server: GET https://studies.cs.helsinki.fi/example/main.css
+    activate server
+    server-->>browser: the CSS file
+    deactivate server
+
+    browser->>server: GET https://studies.cs.helsinki.fi/example/main.js
+    activate server
+    server-->>browser: the JavaScript file
+    deactivate server
+
+    Note right of browser: The browser starts executing the JavaScript code that fetch the JSON from the server
+
+    browser->>server: GET https://studies.cs.helsinki.fi/example/data.json
+    activate server
+    server-->>browser: [{"content:" "HTML is easy", "date": "2024-02-28"}, ... ]
+    deactivate server
+
+
+
